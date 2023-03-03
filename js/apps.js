@@ -72,32 +72,32 @@ const showModalDetails = (detail) =>{
  console.log(detail);
 
 const ModalDiv =document.getElementById('modal-body');
-ModalDiv.innerHTML = `
-<div class="row">
-<div class="col-md-6 bg-danger-subtle ps-2 rounded-2">
-  <h4>${detail?.description
-  ? detail.description
-  : "Not Found"
-}</h4>
-  <div class="row">
-    <div class="col-md-4 my-4 ">
-      <div class="box mx-3 py-4 text-center mx-auto fw-bold px-3 bg-body-secondary fs-4 rounded-3 ">
-       ${
-        detail?.pricing[1]
-          ? detail.pricing[1].price
-          : "Free of cost"
-        }
-      </div>
-    </div>
-    <div class="col-md-4 my-4">
-      <div class="box mx-3 py-4 text-center mx-auto fw-bold px-3 bg-body-secondary fs-4 rounded-3 ">
-      ${
-        detail?.pricing[1]
-          ? detail.pricing[1].price
-          : "Free of cost"
-        }
-      </div>
-    </div>
+    ModalDiv.innerHTML = `
+        <div class="row">
+        <div class="col-md-6 bg-danger-subtle ps-2 rounded-2">
+            <h4>${detail?.description
+            ? detail.description
+            : "Not Found"
+            }</h4>
+            <div class="row">
+                    <div class="col-md-4 my-4 ">
+                    <div class="box mx-3 py-4 text-center mx-auto fw-bold px-3 bg-body-secondary fs-4 rounded-3 ">
+                    ${
+                        detail?.pricing[1]
+                        ? detail.pricing[1].price
+                        : "Free of cost"
+                        }
+                    </div>
+                    </div>
+                        <div class="col-md-4 my-4">
+                        <div class="box mx-3 py-4 text-center mx-auto fw-bold px-3 bg-body-secondary fs-4 rounded-3 ">
+                        ${
+                            detail?.pricing[1]
+                            ? detail.pricing[1].price
+                            : "Free of cost"
+                            }
+                        </div>
+                </div>
     <div class="col-md-4 my-4">
       <div class="box mx-3 text-center mx-auto fw-bold py-3 bg-body-secondary fs-4 rounded-3 ">
       ${
@@ -108,81 +108,81 @@ ModalDiv.innerHTML = `
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-6 ">
-    <h4>Features</h4>
-      <ol>
-        <li>
-        ${
-            detail.features["1"]
-              ? detail.features["1"].feature_name
-              : "Data not found"
-        }
-          </li>
-        <li>
-        ${
-            detail.features["2"]
-              ? detail.features["2"].feature_name
-              : "Data not found"
-        }
-        </li>
-        <li>
-        ${
-            detail.features["3"]
-              ? detail.features["3"].feature_name
-              : "Data not found"
-        }
-        </li>
-      </ol>
+        <div class="row">
+            <div class="col-md-6 ">
+                        <h4>Features</h4>
+                    <ol>
+                        <li>
+                        ${
+                            detail.features["1"]
+                            ? detail.features["1"].feature_name
+                            : "Data not found"
+                        }
+                        </li>
+                        <li>
+                        ${
+                            detail.features["2"]
+                            ? detail.features["2"].feature_name
+                            : "Data not found"
+                        }
+                        </li>
+                        <li>
+                        ${
+                            detail.features["3"]
+                            ? detail.features["3"].feature_name
+                            : "Data not found"
+                        }
+                        </li>
+                    </ol>
+                    </div>
+                    <div class="col-md-6">
+                    <h4>Integrations</h4>
+                    <ol>
+                        <li>
+                        ${
+                            detail?.integrations[0]
+                            ? detail.integrations[0]
+                            : "Data not found"
+                            }
+                        </li>
+                        <li>
+                        ${
+                            detail?.integrations[1]
+                            ? detail.integrations[1]
+                            : "Data not found"
+                        }
+                        </li>
+                        <li>
+                        ${
+                            detail?.integrations[2]
+                            ? detail.integrations[2]
+                            : "Data not found"
+                        }
+                        </li>
+                    </ol>
+                    </div>
+           </div>
+       </div>
+             <div class="col-md-6 rounded-2">
+                    <img src="${detail?.image_link[0]}" alt="Image" class="img-responsive "><h6 style="position: absolute; top: 0; right: 0; id="none" class="bg-danger me-2 accuracy-text text-white p-3 rounded-2 mb-5">${
+                        detail?.accuracy?.score
+                        ? Math.round(detail.accuracy.score * 100)
+                        : "No "
+                    } accuracy</h6>
+                    <h3 class="card-title text-center my-3">
+                    ${
+                        detail?.input_output_examples[0]?.input
+                    }
+                    </h3>
+                    <p>
+                    ${
+                        detail?.input_output_examples[0]
+                        ? detail.input_output_examples[0].output
+                        : "No! Not yet! Take a break!!!"
+                    }
+                    </p>
+                </div>
     </div>
-    <div class="col-md-6">
-    <h4>Integrations</h4>
-      <ol>
-        <li>
-        ${
-            detail?.integrations[0]
-            ? detail.integrations[0]
-            : "Data not found"
-            }
-        </li>
-        <li>
-        ${
-            detail?.integrations[1]
-            ? detail.integrations[1]
-             : "Data not found"
-         }
-        </li>
-        <li>
-        ${
-            detail?.integrations[2]
-            ? detail.integrations[2]
-            : "Data not found"
-        }
-        </li>
-      </ol>
-    </div>
-  </div>
-</div>
-<div class="col-md-6 rounded-2">
-  <img src="${detail?.image_link[0]}" alt="Image" class="img-responsive "><h6 style="position: absolute; top: 0; right: 0; id="none" class="bg-danger me-2 accuracy-text text-white p-3 rounded-2 mb-5">${
-    detail?.accuracy?.score
-      ? Math.round(detail.accuracy.score * 100)
-      : "No "
-  } accuracy</h6>
-  <h3 class="card-title text-center my-3">
-  ${
-    detail?.input_output_examples[0]?.input
-  }
-  </h3>
-  <p>
-  ${
-    detail?.input_output_examples[0]
-      ? detail.input_output_examples[0].output
-      : "No! Not yet! Take a break!!!"
-  }
-  </p>
-</div>
-</div>
   `;
 
    
