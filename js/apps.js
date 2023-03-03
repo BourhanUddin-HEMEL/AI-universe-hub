@@ -1,4 +1,4 @@
-// load data 
+ //load data 
 const loadData = async () =>{
     const url =`https://openapi.programming-hero.com/api/ai/tools`
      const res= await fetch(url);
@@ -28,7 +28,7 @@ const displayCards = cards =>{
 
             <div class="card-footer d-lg-flex justify-content-lg-between align-items-lg-center">
                 <div class="">
-                    <h5 class="card-title">${card.name}</h5>
+                    <h4 class="card-title">${card.name}</h4>
                     <small class="text-muted">${card.published_in}</small>
                 </div>
                 <div>
@@ -42,8 +42,8 @@ const displayCards = cards =>{
         cardsContainer.appendChild(cardDiv);
     })
     
+    
 }
-
 //sort by date function goes here
 const sortCardsByDate = cards => {
     const cardsContainer = document.getElementById('card-container');
@@ -57,6 +57,35 @@ const sortCardsByDate = cards => {
     }
     displayCards({ tools: cards });
   }
-  var modalTitle = `${card.name}`;
-$("#modalTitle").text(modalTitle);
+//   const arrowIcons = document.querySelectorAll('[id$="card-"][id$="-arrow"]');
+// arrowIcons.forEach(arrowIcon => {
+//   arrowIcon.addEventListener('click', () => {
+//     const cardId = arrowIcon.id.split('-')[1];
+//     const card = cards.find(card => card.id === cardId);
+//     const modalTitle = document.getElementById('modal-cardde-scription');
+//     const modalImage = document.querySelector('.modal-body img');
+//     const modalImageAlt = document.querySelector('.modal-body p');
+//     const modalBox1 = document.querySelector('.modal-body .box:nth-of-type(1)');
+//     const modalBox2 = document.querySelector('.modal-body .box:nth-of-type(2)');
+//     const modalBox3 = document.querySelector('.modal-body .box:nth-of-type(3)');
+//     const modalItem1 = document.querySelector('.modal-body ol:nth-of-type(1) li:nth-of-type(1)');
+//     const modalItem2 = document.querySelector('.modal-body ol:nth-of-type(1) li:nth-of-type(2)');
+//     const modalItem3 = document.querySelector('.modal-body ol:nth-of-type(1) li:nth-of-type(3)');
+//     const modalItem4 = document.querySelector('.modal-body ol:nth-of-type(2) li:nth-of-type(1)');
+//     const modalItem5 = document.querySelector('.modal-body ol:nth-of-type(2) li:nth-of-type(2)');
+//     const modalItem6 = document.querySelector('.modal-body ol:nth-of-type(2) li:nth-of-type(3)');
+//     modalTitle.textContent = card.name;
+//     modalImage.src = card.image;
+//     modalImageAlt.textContent = card.description;
+//     modalBox1.textContent = card.box1;
+//     modalBox2.textContent = card.box2;
+//     modalBox3.textContent = card.box3;
+//     modalItem1.textContent = card.item1;
+//     modalItem2.textContent = card.item2;
+//     modalItem3.textContent = card.item3;
+//     modalItem4.textContent = card.item4;
+//     modalItem5.textContent = card.item5;
+//     modalItem6.textContent = card.item6;
+//   });
+// });
 //  loadData();
