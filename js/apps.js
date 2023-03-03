@@ -73,13 +73,13 @@ const showModalDetails = (detail) =>{
 
 const ModalDiv =document.getElementById('modal-body');
     ModalDiv.innerHTML = `
-        <div class="row">
-        <div class="col-md-6 bg-danger-subtle ps-2 rounded-2">
+        <div class="row  px-3 gap-0 ">
+        <div class="col-md-6 bg-success-subtle p-5 rounded-2">
             <h4>${detail?.description
             ? detail.description
             : "Not Found"
             }</h4>
-            <div class="row">
+            <div class="row ps-2">
                     <div class="col-md-4 my-4 ">
                     <div class="box mx-3 py-4 text-center mx-auto fw-bold px-3 bg-body-secondary fs-4 rounded-3 ">
                     ${
@@ -163,8 +163,8 @@ const ModalDiv =document.getElementById('modal-body');
                     </div>
            </div>
        </div>
-             <div class="col-md-6 rounded-2">
-                    <img src="${detail?.image_link[0]}" alt="Image" class="img-responsive "><h6 style="position: absolute; top: 0; right: 0; id="none" class="bg-danger me-2 accuracy-text text-white p-3 rounded-2 mb-5">${
+             <div class="col-md-6 rounded-2 bg-body-secondary ">
+                    <img src="${detail?.image_link[0]}" alt="Image" class="img-responsive p-3 "><h6 style="position: absolute; top: 0; right: 0; id="none" class="bg-danger me-2 accuracy-text text-white p-3 rounded-2 mb-5">${
                         detail?.accuracy?.score
                         ? Math.round(detail.accuracy.score * 100)
                         : "No "
