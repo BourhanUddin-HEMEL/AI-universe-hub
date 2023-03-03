@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bootstrap Modal with 2 Columns</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <h2>Bootstrap Modal with 2 Columns</h2>
+    <button
+      type="button"
+      class="btn btn-info btn-lg"
+      data-toggle="modal"
+      data-target="#myModal"
+    >
+      Open Modal
+    </button>
+    <div class="container">
+      <div
+        class="modal fade"
+        id="myModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="myModalLabel"
+      >
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title" id="myModalLabel">Modal Title</h4>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <p>Some text here</p>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="box">Box 1</div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="box">Box 2</div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="box">Box 3</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <ol>
+                        <li>Item 1</li>
+                        <li>Item 2</li>
+                        <li>Item 3</li>
+                      </ol>
+                    </div>
+                    <div class="col-md-6">
+                      <ol>
+                        <li>Item 4</li>
+                        <li>Item 5</li>
+                        <li>Item 6</li>
+                      </ol>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <img
+                    src="https://via.placeholder.com/400x300"
+                    alt="Image"
+                    class="img-responsive"
+                  />
+                  <p>Image description here</p>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-default"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
