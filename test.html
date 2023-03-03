@@ -1,0 +1,136 @@
+const loadUniversHubDetails = async (id) => {
+    const URL = https://openapi.programming-hero.com/api/ai/tool/${id};
+    const res = await fetch(URL);
+    const data = await res.json();
+    showUniversHubDetails(data);
+  };
+  
+  // Show Universe Hub Specific id to open details
+  const showUniversHubDetails = (detail) => {
+    console.log(detail);
+    const modalDiv = document.getElementById("modal-div");
+  
+    modalDiv.innerHTML = `
+    
+        <div class="col-md-6 mb-3 mb-sm-0">
+                      <div class="card bg-danger-subtle ">
+                        <div class="card-body">
+                          <h4 class="card-title">${
+                            detail?.data?.description
+                              ? detail.data.description
+                              : "Not Found"
+                          }</h4>
+                          <div
+                            class="d-flex justify-content-between align-items-center my-4"
+                          >
+                            <div
+                              class="p-3 bg-light-subtle rounded-3 text-success fw-semibold"
+                            >
+                              ${
+                                detail?.data?.pricing[0]
+                                  ? detail.data.pricing[0].price
+                                  : "Free of cost"
+                              }<br />
+                              
+                              ${detail?.data?.pricing[0]?.plan}/ <br />
+                            </div>
+                            <div
+                              class="mx-3 p-3 bg-light-subtle rounded-3 text-warning"
+                            >
+                            ${
+                              detail?.data?.pricing[1]
+                                ? detail.data.pricing[1].price
+                                : "Free of cost"
+                            }<br />
+                            ${detail?.data?.pricing[1]?.plan}/ <br />
+                            </div>
+                            <div
+                              class="p-3 bg-light-subtle rounded-3 text-danger fw-semibold"
+                            >
+                            ${
+                              detail?.data?.pricing[2]
+                                ? detail.data.pricing[2].price
+                                : "Free of cost"
+                            }<br />
+                            ${detail?.data?.pricing[2]?.plan}/ <br />
+                            </div>
+                          </div>
+  
+                          <div class="d-flex justify-content-between align-items-center my-4">
+                            <div>
+                              <h4>Features</h4>
+                              <ul>
+                                <li>${
+                                  detail?.data?.features["1"]
+                                    ? detail.data.features["1"].feature_name
+                                    : "Data not found"
+                                }</li>
+                                <li>${
+                                  detail?.data?.features["2"]
+                                    ? detail.data.features["2"].feature_name
+                                    : "Data not found"
+                                }</li>
+                                <li>${
+                                  detail?.data?.features["3"]
+                                    ? detail.data.features["3"].feature_name
+                                    : "Data not found"
+                                }</li>
+                              </ul>
+                            </div>
+                            <div>
+                              <h4>Integrations</h4>
+                              <ul>
+                                <li>${
+                                  detail?.data?.integrations[0]
+                                    ? detail.data.integrations[0]
+                                    : "Data not found"
+                                }</li>
+                                <li>${
+                                  detail?.data?.integrations[1]
+                                    ? detail.data.integrations[1]
+                                    : "Data not found"
+                                }</li>
+                                <li>${
+                                  detail?.data?.integrations[2]
+                                    ? detail.data.integrations[2]
+                                    : "Data not found"
+                                }</li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 ">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="img-container">
+                          <img
+                            src="${detail?.data?.image_link[0]}"
+                            class="card-img-top rounded-2 "
+                            alt="..."
+                          />
+                          <h6 id="none" class="bg-danger accuracy-text">${
+                            detail?.data?.accuracy?.score
+                              ? detail.data.accuracy.score
+                              : "No "
+                          } accuracy</h6>
+                          </div>
+                          
+                          <h5 class="card-title text-center my-3">${
+                            detail?.data?.input_output_examples[0]?.input
+                          }</h5>
+                          <p class="card-text text-center">
+                          ${
+                            detail?.data?.input_output_examples[0]
+                              ? detail.data.input_output_examples[0].output
+                              : "No! Not yet! Take a break!!!"
+                          }
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+          </div>
+  
+    `;
+  };

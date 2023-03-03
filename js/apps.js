@@ -6,9 +6,11 @@ const loadData = async () =>{
      displayCards(data.data);
      //get sort-by-date and add addEventListener 
      const sortButton = document.getElementById('sort-by-date');
-    sortButton.addEventListener('click', () => sortCardsByDate(data.data.tools));
+     sortButton.addEventListener('click', () => sortCardsByDate(data.data.tools));
     //  displayCards(data.data.tools[0].name);
 }
+
+
 const displayCards = cards =>{
     // console.log(cards);
     const cardsContainer = document.getElementById('card-container')
@@ -33,17 +35,17 @@ const displayCards = cards =>{
                 </div>
                 <div>
                     <i 
-                        class="fa-solid fa-arrow-right bg-danger p-lg-3 rounded-5 bg-opacity-50 text-dark" data-toggle="modal"
+                        class="fa-solid fa-arrow-right bg-danger p-lg-3 rounded-5 bg-opacity-50 text-dark" data-toggle="modal" onclick=cardId('${card.id}')
                         data-target="#myModal">
                     </i>
                 </div>
             </div>
         `
         cardsContainer.appendChild(cardDiv);
-    })
-    
+    }) 
     
 }
+
 //sort by date function goes here
 const sortCardsByDate = cards => {
     const cardsContainer = document.getElementById('card-container');
@@ -56,36 +58,134 @@ const sortCardsByDate = cards => {
       cardsContainer.removeChild(cardsContainer.firstChild);
     }
     displayCards({ tools: cards });
+}
+loadData();
+// const cardId = card_id =>{
+//     console.log(card_id);
+// } 
+const cardId = async (id) =>{
+    const URL =`https://openapi.programming-hero.com/api/ai/tool/${id}`
+    const res= await fetch(URL);
+    const data = await res.json();
+    showModalDetails(data.data);
+}
+
+const showModalDetails = (detail) =>{
+ console.log(detail);
+
+const ModalDiv =document.getElementById('modal-body');
+ModalDiv.innerHTML = `
+<div class="row">
+<div class="col-md-6">
+  <h4>${detail?.description
+  ? detail.description
+  : "Not Found"
+}</h4>
+  <div class="row">
+    <div class="col-md-4 my-4 ">
+      <div class="box mx-3 py-4 text-center mx-auto fw-bold px-3 bg-body-secondary fs-4 rounded-3 ">
+       ${
+        detail?.pricing[1]
+          ? detail.pricing[1].price
+          : "Free of cost"
+        }
+      </div>
+    </div>
+    <div class="col-md-4 my-4">
+      <div class="box mx-3 py-4 text-center mx-auto fw-bold px-3 bg-body-secondary fs-4 rounded-3 ">
+      ${
+        detail?.pricing[1]
+          ? detail.pricing[1].price
+          : "Free of cost"
+        }
+      </div>
+    </div>
+    <div class="col-md-4 my-4">
+      <div class="box mx-3 text-center mx-auto fw-bold py-3 bg-body-secondary fs-4 rounded-3 ">
+      ${
+        detail?.pricing[2]
+          ? detail.pricing[2].price
+          : "Free of cost"
+        }
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+    <h4>Features</h4>
+      <ol>
+        <li>
+        ${
+            detail.features["1"]
+              ? detail.features["1"].feature_name
+              : "Data not found"
+        }
+          </li>
+        <li>
+        ${
+            detail.features["2"]
+              ? detail.features["2"].feature_name
+              : "Data not found"
+        }
+        </li>
+        <li>
+        ${
+            detail.features["3"]
+              ? detail.features["3"].feature_name
+              : "Data not found"
+        }
+        </li>
+      </ol>
+    </div>
+    <div class="col-md-6">
+    <h4>Integrations</h4>
+      <ol>
+        <li>
+        ${
+            detail?.integrations[0]
+            ? detail.integrations[0]
+            : "Data not found"
+            }
+        </li>
+        <li>
+        ${
+            detail?.integrations[1]
+            ? detail.integrations[1]
+             : "Data not found"
+         }
+        </li>
+        <li>
+        ${
+            detail?.integrations[2]
+            ? detail.integrations[2]
+            : "Data not found"
+        }
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>
+<div class="col-md-6">
+  <img src="${detail?.image_link[0]}" alt="Image" class="img-responsive">
+  <h3 class="card-title text-center my-3">
+  ${
+    detail?.input_output_examples[0]?.input
   }
-//   const arrowIcons = document.querySelectorAll('[id$="card-"][id$="-arrow"]');
-// arrowIcons.forEach(arrowIcon => {
-//   arrowIcon.addEventListener('click', () => {
-//     const cardId = arrowIcon.id.split('-')[1];
-//     const card = cards.find(card => card.id === cardId);
-//     const modalTitle = document.getElementById('modal-cardde-scription');
-//     const modalImage = document.querySelector('.modal-body img');
-//     const modalImageAlt = document.querySelector('.modal-body p');
-//     const modalBox1 = document.querySelector('.modal-body .box:nth-of-type(1)');
-//     const modalBox2 = document.querySelector('.modal-body .box:nth-of-type(2)');
-//     const modalBox3 = document.querySelector('.modal-body .box:nth-of-type(3)');
-//     const modalItem1 = document.querySelector('.modal-body ol:nth-of-type(1) li:nth-of-type(1)');
-//     const modalItem2 = document.querySelector('.modal-body ol:nth-of-type(1) li:nth-of-type(2)');
-//     const modalItem3 = document.querySelector('.modal-body ol:nth-of-type(1) li:nth-of-type(3)');
-//     const modalItem4 = document.querySelector('.modal-body ol:nth-of-type(2) li:nth-of-type(1)');
-//     const modalItem5 = document.querySelector('.modal-body ol:nth-of-type(2) li:nth-of-type(2)');
-//     const modalItem6 = document.querySelector('.modal-body ol:nth-of-type(2) li:nth-of-type(3)');
-//     modalTitle.textContent = card.name;
-//     modalImage.src = card.image;
-//     modalImageAlt.textContent = card.description;
-//     modalBox1.textContent = card.box1;
-//     modalBox2.textContent = card.box2;
-//     modalBox3.textContent = card.box3;
-//     modalItem1.textContent = card.item1;
-//     modalItem2.textContent = card.item2;
-//     modalItem3.textContent = card.item3;
-//     modalItem4.textContent = card.item4;
-//     modalItem5.textContent = card.item5;
-//     modalItem6.textContent = card.item6;
-//   });
-// });
-//  loadData();
+  </h3>
+  <p>
+  ${
+    detail?.input_output_examples[0]
+      ? detail.input_output_examples[0].output
+      : "No! Not yet! Take a break!!!"
+  }
+  </p>
+</div>
+</div>
+  `;
+
+   
+};  
+// modalData();
+
+loadData();
+
