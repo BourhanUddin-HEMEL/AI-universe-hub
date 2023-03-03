@@ -28,14 +28,14 @@ const displayCards = cards =>{
             </ol>
             </div>
 
-            <div class="card-footer d-lg-flex justify-content-lg-between align-items-lg-center">
+            <div class="card-footer  d-sm-flex flex-sm-col-reverse justify-content-sm-evenly d-lg-flex justify-content-lg-between align-items-lg-center">
                 <div class="">
                     <h4 class="card-title">${card.name}</h4>
-                    <small class="text-muted">${card.published_in}</small>
+                    <i class="fa-solid fa-calendar-days"></i>  <small class="text-muted">${card.published_in}</small>
                 </div>
                 <div>
                     <i 
-                        class="fa-solid fa-arrow-right bg-danger p-lg-3 rounded-5 bg-opacity-50 text-dark" data-toggle="modal" onclick=cardId('${card.id}')
+                        class="fa-solid fa-arrow-right bg-danger p-sm-4  p-lg-3 rounded-5 bg-opacity-50 text-dark" data-toggle="modal" onclick=cardId('${card.id}')
                         data-target="#myModal">
                     </i>
                 </div>
@@ -60,9 +60,7 @@ const sortCardsByDate = cards => {
     displayCards({ tools: cards });
 }
 loadData();
-// const cardId = card_id =>{
-//     console.log(card_id);
-// } 
+
 const cardId = async (id) =>{
     const URL =`https://openapi.programming-hero.com/api/ai/tool/${id}`
     const res= await fetch(URL);
@@ -76,7 +74,7 @@ const showModalDetails = (detail) =>{
 const ModalDiv =document.getElementById('modal-body');
 ModalDiv.innerHTML = `
 <div class="row">
-<div class="col-md-6">
+<div class="col-md-6 bg-danger-subtle ps-2 rounded-2">
   <h4>${detail?.description
   ? detail.description
   : "Not Found"
@@ -111,7 +109,7 @@ ModalDiv.innerHTML = `
     </div>
   </div>
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6 ">
     <h4>Features</h4>
       <ol>
         <li>
@@ -165,8 +163,12 @@ ModalDiv.innerHTML = `
     </div>
   </div>
 </div>
-<div class="col-md-6">
-  <img src="${detail?.image_link[0]}" alt="Image" class="img-responsive">
+<div class="col-md-6 rounded-2">
+  <img src="${detail?.image_link[0]}" alt="Image" class="img-responsive "><h6 style="position: absolute; top: 0; right: 0; id="none" class="bg-danger me-2 accuracy-text text-white p-3 rounded-2 mb-5">${
+    detail?.accuracy?.score
+      ? Math.round(detail.accuracy.score * 100)
+      : "No "
+  } accuracy</h6>
   <h3 class="card-title text-center my-3">
   ${
     detail?.input_output_examples[0]?.input
@@ -185,7 +187,5 @@ ModalDiv.innerHTML = `
 
    
 };  
-// modalData();
 
-loadData();
 
