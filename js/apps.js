@@ -8,6 +8,8 @@ const loadData = async () =>{
      const sortButton = document.getElementById('sort-by-date');
      sortButton.addEventListener('click', () => sortCardsByDate(data.data.tools));
     //  displayCards(data.data.tools[0].name);
+     // stop the loader here 
+     toggleLoader(true);
 }
 
 
@@ -42,12 +44,15 @@ const displayCards = cards =>{
             </div>
         `
         cardsContainer.appendChild(cardDiv);
-    }) 
+    });
+    // stop the loader here 
+       toggleLoader(false);
     
 }
 
 //sort by date function goes here
 const sortCardsByDate = cards => {
+    // start loader here 
     const cardsContainer = document.getElementById('card-container');
     cards.sort((a, b) => {
       const dateA = new Date(a.published_in);
@@ -58,7 +63,22 @@ const sortCardsByDate = cards => {
       cardsContainer.removeChild(cardsContainer.firstChild);
     }
     displayCards({ tools: cards });
+     // stop the loader here 
+     toggleLoader(false);
+
 }
+
+    //loader function goes here 
+  const toggleLoader = isLoading =>{
+    const SpinnerLoaderDiv=document.getElementById('loader');
+    if(isLoading){
+        SpinnerLoaderDiv.classList.remove('d-none');
+    }
+    else{
+        SpinnerLoaderDiv.classList.add('d-none')
+    }
+}
+
 loadData();
 
 const cardId = async (id) =>{
@@ -66,11 +86,12 @@ const cardId = async (id) =>{
     const res= await fetch(URL);
     const data = await res.json();
     showModalDetails(data.data);
+    toggleLoader(true);
 }
 
 const showModalDetails = (detail) =>{
- console.log(detail);
-
+//  console.log(detail);
+toggleLoader(true);
 const ModalDiv =document.getElementById('modal-body');
     ModalDiv.innerHTML = `
         <div class="row  px-3 gap-0 ">
@@ -184,7 +205,7 @@ const ModalDiv =document.getElementById('modal-body');
                 </div>
     </div>
   `;
-
+  toggleLoader(false);
    
 };  
 
