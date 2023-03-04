@@ -1,52 +1,56 @@
- //load data 
+//load data 
 const loadData = async () =>{
     toggleLoader(true)
     const url =`https://openapi.programming-hero.com/api/ai/tools`
      const res= await fetch(url);
      const data = await res.json();
      toggleLoader(false)
-     displayCards(data.data);
+     displayCards(data.data, 6);
      //get sort-by-date and add addEventListener 
      const sortButton = document.getElementById('sort-by-date');
      sortButton.addEventListener('click', () => sortCardsByDate(data.data.tools));
-    //  displayCards(data.data.tools[0].name);
-     
 }
-const displayCards = cards =>{
-
-    const cardsContainer = document.getElementById('card-container')
- 
-    cards.tools.forEach(card =>{
-        // console.log(card);
-        const cardDiv = document.createElement('div');
-        cardDiv.classList.add('col');
-        cardDiv.innerHTML = `
+const displayCards = (cards, visibleCardCount) => {
+    const cardsContainer = document.getElementById('card-container');
+    cardsContainer.innerHTML = '';
+  
+    cards.tools.slice(0, visibleCardCount).forEach(card =>  {
+      const cardDiv = document.createElement('div');
+      cardDiv.classList.add('col');
+      cardDiv.innerHTML = `
         <div class="card h-100">
-            <img src="${card.image}" class="card-img-top" alt="..." />
-            <div class="card-body">
-                <h4 class="card-title">Features</h4>
+          <img src="${card.image}" class="card-img-top" alt="..." />
+          <div class="card-body">
+            <h4 class="card-title">Features</h4>
             <ol>
-            ${card.features.map(feature => `<li>${feature}</li>`).join('')}
+              ${card.features.map(feature => `<li>${feature}</li>`).join('')}
             </ol>
+          </div>
+          <div class="card-footer d-sm-flex flex-sm-col-reverse justify-content-sm-evenly d-lg-flex justify-content-lg-between align-items-lg-center">
+            <div>
+              <h4 class="card-title">${card.name}</h4>
+              <i class="fa-solid fa-calendar-days"></i>
+              <small class="text-muted fs-4">${card.published_in}</small>
             </div>
-
-            <div class="card-footer  d-sm-flex flex-sm-col-reverse justify-content-sm-evenly d-lg-flex justify-content-lg-between align-items-lg-center">
-                <div class="">
-                    <h4 class="card-title">${card.name}</h4>
-                    <i class="fa-solid fa-calendar-days"></i>  <small class="text-muted">${card.published_in}</small>
-                </div>
-                <div>
-                    <i 
-                        class="fa-solid fa-arrow-right bg-danger p-sm-4  p-lg-3 rounded-5 bg-opacity-50 text-dark" data-toggle="modal" onclick=cardId('${card.id}')
-                        data-target="#myModal">
-                    </i>
-                </div>
+            <div>
+              <i class="fa-solid fa-arrow-right bg-danger p-sm-4 p-lg-3 rounded-5 bg-opacity-50 text-dark" data-toggle="modal" onclick="cardId('${card.id}')" data-target="#myModal"></i>
             </div>
-        `
-        cardsContainer.appendChild(cardDiv);
+          </div>
+        </div>
+      `;
+      cardsContainer.appendChild(cardDiv);
     });
     
-};
+    if (visibleCardCount < cards.tools.length) {
+      const showMoreButton = document.createElement('button');
+      showMoreButton.textContent = 'Show More';
+      showMoreButton.classList.add('btn', 'btn-primary', 'mx-auto', 'my-4');
+      showMoreButton.addEventListener('click', () => {
+        displayCards(cards, cards.tools.length);
+      });
+      cardsContainer.appendChild(showMoreButton);
+    }
+  };
 //sort by date function goes here
 const sortCardsByDate = cards => {
     // start loader here 
