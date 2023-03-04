@@ -1,21 +1,21 @@
  //load data 
 const loadData = async () =>{
+    toggleLoader(true)
     const url =`https://openapi.programming-hero.com/api/ai/tools`
      const res= await fetch(url);
      const data = await res.json();
+     toggleLoader(false)
      displayCards(data.data);
      //get sort-by-date and add addEventListener 
      const sortButton = document.getElementById('sort-by-date');
      sortButton.addEventListener('click', () => sortCardsByDate(data.data.tools));
     //  displayCards(data.data.tools[0].name);
-     // stop the loader here 
-     toggleLoader(true);
+     
 }
-
-
 const displayCards = cards =>{
-    // console.log(cards);
+
     const cardsContainer = document.getElementById('card-container')
+ 
     cards.tools.forEach(card =>{
         // console.log(card);
         const cardDiv = document.createElement('div');
@@ -45,14 +45,12 @@ const displayCards = cards =>{
         `
         cardsContainer.appendChild(cardDiv);
     });
-    // stop the loader here 
-       toggleLoader(false);
     
-}
-
+};
 //sort by date function goes here
 const sortCardsByDate = cards => {
     // start loader here 
+    toggleLoader(true);
     const cardsContainer = document.getElementById('card-container');
     cards.sort((a, b) => {
       const dateA = new Date(a.published_in);
@@ -63,8 +61,8 @@ const sortCardsByDate = cards => {
       cardsContainer.removeChild(cardsContainer.firstChild);
     }
     displayCards({ tools: cards });
-     // stop the loader here 
-     toggleLoader(false);
+    //stop loader
+    toggleLoader(false);
 
 }
 
@@ -79,19 +77,19 @@ const sortCardsByDate = cards => {
     }
 }
 
-loadData();
-
 const cardId = async (id) =>{
+    //start loader
+    toggleLoader(true);
     const URL =`https://openapi.programming-hero.com/api/ai/tool/${id}`
     const res= await fetch(URL);
     const data = await res.json();
     showModalDetails(data.data);
-    toggleLoader(true);
+    //stop loader
+    toggleLoader(false);
 }
 
 const showModalDetails = (detail) =>{
 //  console.log(detail);
-toggleLoader(true);
 const ModalDiv =document.getElementById('modal-body');
     ModalDiv.innerHTML = `
         <div class="row  px-3 gap-0 ">
@@ -205,8 +203,5 @@ const ModalDiv =document.getElementById('modal-body');
                 </div>
     </div>
   `;
-  toggleLoader(false);
-   
 };  
-
-
+loadData();
